@@ -4,7 +4,7 @@ Version:	2.7.8.1
 Release:	%mkrel 2
 License:        MIT
 Group:		Graphics
-BuildRequires: 	XFree86-devel xpm-devel jpeg-devel png-devel 
+BuildRequires: 	X11-devel xpm-devel jpeg-devel png-devel 
 BuildRequires:	tiff-devel zlib-devel bison flex xorg-x11
 BuildRequires:  Xaw3d-devel
 Source0:	http://prdownloads.sourceforge.net/sf-xpaint/xpaint-%{version}.tar.bz2
