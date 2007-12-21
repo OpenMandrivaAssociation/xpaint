@@ -11,6 +11,7 @@ Source0:	http://prdownloads.sourceforge.net/sf-xpaint/xpaint-%{version}.tar.bz2
 Source1:	icons-%{name}.tar.bz2
 Patch0:		xpaint-2.7.8.1-new-X.patch
 URL:            https://sourceforge.net/projects/sf-xpaint
+BuildRoot:	%{_tmppath}/xpaint-root
 
 %description
 XPaint is an X Window System color image editing program which supports
