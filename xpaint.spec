@@ -78,7 +78,7 @@ install -d $RPM_BUILD_ROOT%{_iconsdir}
 tar jxf %{SOURCE1} -C $RPM_BUILD_ROOT%{_iconsdir}
 
 # symlink on /etc
-rm -f $RPM_BUILD_ROOT%{_libdir}/X11/app-defaults
+rm -f $RPM_BUILD_ROOT/usr/lib/X11/app-defaults
 
 %post
 %update_menus
