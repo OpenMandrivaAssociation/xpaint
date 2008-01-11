@@ -47,17 +47,7 @@ make \
 # (sb) fix the include path in the built in scripting filter examples
 #perl -pi -e "s|$RPM_BUILD_ROOT||g" $RPM_BUILD_ROOT%{_datadir}/xpaint/filters/*.c
 
-mkdir -p $RPM_BUILD_ROOT%{_menudir}
 #mdk menu entry
-cat << EOF > $RPM_BUILD_ROOT%{_menudir}/%{name} 
-?package(xpaint):needs="X11" \
-section="Multimedia/Graphics" \
-title="Xpaint" \
-longtitle="Paint program" \
-command="xpaint" \
-icon="xpaint.png" \
-xdg="true"
-EOF
 
 mkdir -p $RPM_BUILD_ROOT%{_datadir}/applications
 cat > $RPM_BUILD_ROOT%{_datadir}/applications/%{name}.desktop << EOF
@@ -116,7 +106,6 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_datadir}/xpaint/include
 %{_datadir}/xpaint/include/*
 %config(noreplace) %{_sysconfdir}/X11/app-defaults/XPaint*
-%{_menudir}/%{name}
 %{_datadir}/applications/%{name}.desktop
 %{_iconsdir}/*.png
 %{_iconsdir}/*/*.png
