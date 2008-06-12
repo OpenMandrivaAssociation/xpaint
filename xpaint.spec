@@ -70,11 +70,15 @@ tar jxf %{SOURCE1} -C $RPM_BUILD_ROOT%{_iconsdir}
 # symlink on /etc
 rm -f $RPM_BUILD_ROOT/usr/lib/X11/app-defaults
 
+%if %mdkversion < 200900
 %post
 %update_menus
+%endif
 
+%if %mdkversion < 200900
 %postun
 %clean_menus
+%endif
 
 %clean
 rm -rf $RPM_BUILD_ROOT
