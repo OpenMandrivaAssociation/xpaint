@@ -1,7 +1,7 @@
 Summary:	An X Window System image editing or paint program
 Name:		xpaint
 Version:	2.8.2
-Release:	%mkrel 1
+Release:	%mkrel 2
 License:        MIT
 Group:		Graphics
 BuildRequires: 	xpm-devel jpeg-devel png-devel libxp-devel
@@ -18,16 +18,18 @@ BuildRoot:	%{_tmppath}/xpaint-root
 
 %description
 XPaint is an X Window System color image editing program which supports
-most standard paint program options.  XPaint also supports advanced
-features like image processing algorithms.  XPaint allows you to edit
-multiple images simultaneously and supports a variety of image formats,
-including PPM, XBM, TIFF, JPEG, etc.
+many standard paint program operations. XPaint also supports advanced
+features like image processing algorithms, scripting and batch jobs.  
+XPaint allows you to edit multiple images simultaneously and supports
+a large variety of image formats, including PNG, JPEG, TIFF, XPM, PPM, 
+XBM, PS, etc.
 
-Install the xpaint package if you need a paint program for X.
+Install this package if you need a simple paint program for X.
 
-Xpaint now uses the Xaw95 widget set for a bit nicer look, as well as
-adding some new editing features including user filters. Some example
-filter code is included. 
+Recent versions of XPaint add new optional editing features based 
+on programmable filters and user defined procedures written as scripts 
+in plain C. The package includes a substantial list of examples and 
+some support for batch processing.
 
 %prep
 %setup -q 
