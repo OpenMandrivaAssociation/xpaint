@@ -1,7 +1,7 @@
 Summary:	An X Window System image editing or paint program
 Name:		xpaint
-Version:	2.8.2
-Release:	%mkrel 2
+Version:	2.8.7.3
+Release:	%mkrel 1
 License:        MIT
 Group:		Graphics
 BuildRequires: 	xpm-devel jpeg-devel png-devel libxp-devel
@@ -9,10 +9,6 @@ BuildRequires:	tiff-devel zlib-devel bison flex
 BuildRequires:  Xaw3d-devel imake gccmakedep
 Source0:	http://prdownloads.sourceforge.net/sf-xpaint/xpaint-%{version}.tar.bz2
 Source1:	icons-%{name}.tar.bz2
-# (fc) 2.8.0-1mdv fix format string error
-Patch0:		xpaint-2.8.0-fmt_string.patch
-# (fc) 2.8.0-1mdv fix build with xaw3d
-Patch1:		xpaint-2.8.0-xaw3d.patch
 URL:            https://sourceforge.net/projects/sf-xpaint
 BuildRoot:	%{_tmppath}/xpaint-root
 
@@ -33,8 +29,6 @@ some support for batch processing.
 
 %prep
 %setup -q 
-%patch0 -p1 -b .fmt_string
-%patch1 -p1 -b .xaw3d
 
 %build
 sed -i -e "s/\(XCOMM CDEBUGFLAGS =\)/CDEBUGFLAGS = $RPM_OPT_FLAGS\nCXXDEBUGFLAGS = $RPM_OPT_FLAGS/g" Local.config
