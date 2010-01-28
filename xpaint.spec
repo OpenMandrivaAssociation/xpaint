@@ -1,15 +1,15 @@
 Summary:	An X Window System image editing or paint program
 Name:		xpaint
 Version:	2.8.13.1
-Release:	%mkrel 1
-License:        MIT
+Release:	%mkrel 2
+License:	MIT
 Group:		Graphics
-BuildRequires: 	xpm-devel jpeg-devel png-devel libxp-devel
+BuildRequires:	xpm-devel jpeg-devel png-devel libxp-devel
 BuildRequires:	tiff-devel zlib-devel bison flex 
-BuildRequires:  Xaw3d-devel imake gccmakedep
+BuildRequires:	Xaw3d-devel imake gccmakedep
 Source0:	http://prdownloads.sourceforge.net/sf-xpaint/xpaint-%{version}.tar.bz2
 Source1:	icons-%{name}.tar.bz2
-URL:            https://sourceforge.net/projects/sf-xpaint
+URL:		https://sourceforge.net/projects/sf-xpaint
 BuildRoot:	%{_tmppath}/xpaint-root
 
 %description
@@ -32,7 +32,7 @@ some support for batch processing.
 
 %build
 sed -i -e "s/\(XCOMM CDEBUGFLAGS =\)/CDEBUGFLAGS = $RPM_OPT_FLAGS\nCXXDEBUGFLAGS = $RPM_OPT_FLAGS/g" Local.config
-./configure
+./configure --libdir=%{_libdir}
 
 %make xaw3d
 
@@ -67,7 +67,7 @@ install -d $RPM_BUILD_ROOT%{_iconsdir}
 tar jxf %{SOURCE1} -C $RPM_BUILD_ROOT%{_iconsdir}
 
 # symlink on /etc
-rm -f $RPM_BUILD_ROOT/usr/lib/X11/app-defaults
+rm -f $RPM_BUILD_ROOT%{_libdir}
 
 %if %mdkversion < 200900
 %post
