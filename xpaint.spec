@@ -67,7 +67,7 @@ install -d $RPM_BUILD_ROOT%{_iconsdir}
 tar jxf %{SOURCE1} -C $RPM_BUILD_ROOT%{_iconsdir}
 
 # symlink on /etc
-rm -f $RPM_BUILD_ROOT%{_libdir}
+rm -rf $RPM_BUILD_ROOT%{_libdir}
 
 %if %mdkversion < 200900
 %post
