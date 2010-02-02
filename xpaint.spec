@@ -1,6 +1,6 @@
 Summary:	An X Window System image editing or paint program
 Name:		xpaint
-Version:	2.8.14
+Version:	2.8.15
 Release:	%mkrel 1
 License:	MIT
 Group:		Graphics
