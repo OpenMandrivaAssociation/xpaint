@@ -31,8 +31,8 @@ some support for batch processing.
 
 %prep
 %setup -q 
-%patch0 -p0
-%patch1 -p0
+%patch0 -p1
+%patch1 -p1
 %build
 sed -i -e "s/\(XCOMM CDEBUGFLAGS =\)/CDEBUGFLAGS = $RPM_OPT_FLAGS\nCXXDEBUGFLAGS = $RPM_OPT_FLAGS/g" Local.config
 %configure2_5x
