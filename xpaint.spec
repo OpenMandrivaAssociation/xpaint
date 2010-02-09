@@ -9,8 +9,6 @@ BuildRequires:	tiff-devel zlib-devel bison flex
 BuildRequires:	Xaw3d-devel imake gccmakedep
 Source0:	http://prdownloads.sourceforge.net/sf-xpaint/xpaint-%{version}.tar.bz2
 Source1:	icons-%{name}.tar.bz2
-Patch0:		xpaint-2.8.15-text-ctrlH-segfault.patch
-Patch1:		xpaint-2.8.15-cosmetic.patch
 URL:		https://sourceforge.net/projects/sf-xpaint
 BuildRoot:	%{_tmppath}/xpaint-root
 
@@ -31,8 +29,7 @@ some support for batch processing.
 
 %prep
 %setup -q 
-%patch0 -p1
-%patch1 -p1
+
 %build
 sed -i -e "s/\(XCOMM CDEBUGFLAGS =\)/CDEBUGFLAGS = $RPM_OPT_FLAGS\nCXXDEBUGFLAGS = $RPM_OPT_FLAGS/g" Local.config
 %configure2_5x
