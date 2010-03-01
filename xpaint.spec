@@ -1,7 +1,7 @@
 Summary:	An X Window System image editing or paint program
 Name:		xpaint
 Version:	2.8.15
-Release:	%mkrel 4
+Release:	%mkrel 5
 License:	MIT
 Group:		Graphics
 BuildRequires:	xpm-devel jpeg-devel png-devel libxp-devel
@@ -87,8 +87,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_bindir}/*
 %{_mandir}/man1/xpaint.1x*
 %{_datadir}/xpaint
-%config(noreplace) %{_sysconfdir}/X11/app-defaults/XPaint*
+%config(noreplace) %{_sysconfdir}/X11/app-defaults/*
 %{_datadir}/applications/%{name}.desktop
 %{_iconsdir}/*.png
 %{_iconsdir}/*/*.png
-/usr/lib/X11/app-defaults
