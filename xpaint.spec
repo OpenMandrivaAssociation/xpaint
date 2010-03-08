@@ -1,7 +1,7 @@
 Summary:	An X Window System image editing or paint program
 Name:		xpaint
 Version:	2.8.15
-Release:	%mkrel 5
+Release:	%mkrel 6
 License:	MIT
 Group:		Graphics
 BuildRequires:	xpm-devel jpeg-devel png-devel libxp-devel
@@ -33,7 +33,7 @@ some support for batch processing.
 %build
 sed -i -e "s/\(XCOMM CDEBUGFLAGS =\)/CDEBUGFLAGS = $RPM_OPT_FLAGS\nCXXDEBUGFLAGS = $RPM_OPT_FLAGS/g" Local.config
 %configure2_5x
-%make xaw3d
+make
 
 %install
 rm -rf $RPM_BUILD_ROOT
