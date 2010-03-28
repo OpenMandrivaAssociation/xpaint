@@ -1,19 +1,20 @@
 Summary:	An X Window System image editing or paint program
 Name:		xpaint
-Version:	2.8.17
+Version:	2.8.18
 Release:	%mkrel 1
 License:	MIT
 Group:		Graphics
 BuildRequires:	xpm-devel jpeg-devel png-devel libxp-devel
 BuildRequires:	tiff-devel zlib-devel bison flex 
-BuildRequires:	Xaw3d-devel imake gccmakedep
+BuildRequires:	Xaw3d-devel xaw3dxft-devel imake gccmakedep
 BuildRequires:	libxft-devel chrpath
 Source0:	http://prdownloads.sourceforge.net/sf-xpaint/xpaint-%{version}.tar.bz2
 Source1:	icons-%{name}.tar.bz2
-# Patch from upstream
-Patch0:		xpaint-2.8.17-minor_fixes.patch
+Patch0:		xpaint-2.8.18-use_system_Xaw3dxft.patch
 URL:		https://sourceforge.net/projects/sf-xpaint
 BuildRoot:	%{_tmppath}/xpaint-root
+# Menus uses Liberation fonts
+Requires:	fonts-ttf-liberation
 
 %description
 XPaint is an X Window System color image editing program which supports
@@ -51,20 +52,17 @@ for f in ChangeLog README; do
 done
 
 #%%configure or %%configure2_5x brokes the build
-./configure auto
+./configure xaw3dxft.so
 
-%make xaw3dg
+#%%make brokes the build
+make
 
 %install
 rm -rf %{buildroot}
 
 %makeinstall_std install.man
 
-# (sb) fix the include path in the built in scripting filter examples
-#perl -pi -e "s|%{buildroot}||g" %{buildroot}%{_datadir}/xpaint/filters/*.c
-
 #mdk menu entry
-
 mkdir -p %{buildroot}%{_datadir}/applications
 cat > %{buildroot}%{_datadir}/applications/%{name}.desktop << EOF
 [Desktop Entry]
