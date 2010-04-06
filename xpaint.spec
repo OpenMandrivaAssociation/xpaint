@@ -1,6 +1,6 @@
 Summary:	An X Window System image editing or paint program
 Name:		xpaint
-Version:	2.8.18
+Version:	2.8.19
 Release:	%mkrel 1
 License:	MIT
 Group:		Graphics
@@ -66,10 +66,9 @@ rm -rf %{buildroot}
 mkdir -p %{buildroot}%{_datadir}/applications
 cat > %{buildroot}%{_datadir}/applications/%{name}.desktop << EOF
 [Desktop Entry]
-Encoding=UTF-8
 Name=Xpaint
 Comment=Paint program
-Exec=%{_bindir}/%{name}
+Exec=%{name}
 Icon=%{name}
 Terminal=false
 Type=Application
@@ -101,7 +100,7 @@ rm -rf %{buildroot}
 
 %files
 %defattr(-,root,root)
-%doc ChangeLog README README.PNG TODO Doc
+%doc ChangeLog README* TODO Doc/*.doc Doc/sample.Xdefaults
 %{_bindir}/*
 %{_mandir}/man1/xpaint.1x*
 %{_datadir}/xpaint
