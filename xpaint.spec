@@ -1,7 +1,7 @@
 Summary:	An X Window System image editing or paint program
 Name:		xpaint
 Version:	2.8.19
-Release:	%mkrel 2
+Release:	%mkrel 3
 License:	MIT
 Group:		Graphics
 BuildRequires:	xpm-devel jpeg-devel png-devel libxp-devel
@@ -14,6 +14,7 @@ Patch0:		xpaint-2.8.18-use_system_Xaw3dxft.patch
 # patches from upstream
 Patch1:		http://prdownloads.sourceforge.net/sf-xpaint/xpaint-2.8.19-minor_fixes.patch
 Patch2:		http://prdownloads.sourceforge.net/sf-xpaint/xpaint-2.8.19-small-improvements.patch
+Patch3:		http://prdownloads.sourceforge.net/sf-xpaint/xpaint-2.8.19-ewmh-minor-fixes.patch
 URL:		https://sourceforge.net/projects/sf-xpaint
 BuildRoot:	%{_tmppath}/xpaint-root
 # Menus uses Liberation fonts
@@ -39,6 +40,7 @@ some support for batch processing.
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1
 
 %build
 # adapted fixes from Fedora
