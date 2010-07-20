@@ -35,7 +35,7 @@ some support for batch processing.
 %prep
 %setup -q 
 %patch0 -p1
-%patch0 -p1
+%patch1 -p1
 
 %build
 # adapted fixes from Fedora
