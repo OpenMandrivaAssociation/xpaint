@@ -1,17 +1,17 @@
 Summary:	An X Window System image editing or paint program
 Name:		xpaint
-Version:	2.9.1.4
-Release:	%mkrel 3
+Version:	2.9.2
+Release:	%mkrel 1
 License:	MIT
 Group:		Graphics
 BuildRequires:	xpm-devel jpeg-devel png-devel libxp-devel
 BuildRequires:	tiff-devel zlib-devel bison flex 
 BuildRequires:	Xaw3d-devel xaw3dxft-devel imake gccmakedep
 BuildRequires:	libxft-devel chrpath
+BuildRequires:	openjpeg-devel
 Source0:	http://prdownloads.sourceforge.net/sf-xpaint/xpaint-%{version}.tar.bz2
 Source1:	icons-%{name}.tar.bz2
-Patch0:		xpaint-2.8.18-use_system_Xaw3dxft.patch
-Patch1:		xpaint-2.9.1.4-very-minor-fixes.patch
+Patch0:		xpaint-build_against_system_libraries.patch
 URL:		https://sourceforge.net/projects/sf-xpaint
 BuildRoot:	%{_tmppath}/xpaint-root
 # Menus uses Liberation fonts
@@ -35,7 +35,6 @@ some support for batch processing.
 %prep
 %setup -q 
 %patch0 -p1
-%patch1 -p1
 
 %build
 # adapted fixes from Fedora
@@ -52,6 +51,9 @@ for f in ChangeLog README; do
     touch -r $f $f.utf8
     mv $f.utf8 $f
 done
+
+#build against system libraries
+rm -rf xaw3dxft/
 
 #%%configure or %%configure2_5x brokes the build
 ./configure xaw3dxft.so
@@ -86,16 +88,6 @@ chrpath -d %{buildroot}%{_bindir}/xpaint
 
 # symlink on /etc
 rm -rf %{buildroot}/usr/lib/X11/app-defaults
-
-%if %mdkversion < 200900
-%post
-%update_menus
-%endif
-
-%if %mdkversion < 200900
-%postun
-%clean_menus
-%endif
 
 %clean
 rm -rf %{buildroot}
