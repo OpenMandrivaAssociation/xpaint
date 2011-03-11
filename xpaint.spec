@@ -1,7 +1,7 @@
 Summary:	An X Window System image editing or paint program
 Name:		xpaint
 Version:	2.9.8.2
-Release:	%mkrel 2
+Release:	%mkrel 3
 License:	MIT
 Group:		Graphics
 BuildRequires:	xpm-devel jpeg-devel png-devel libxp-devel
@@ -34,7 +34,8 @@ some support for batch processing.
 
 %prep
 %setup -q 
-%patch0 -p0 
+%patch0 -p0 -b .syslib
+
 %build
 # adapted fixes from Fedora
 sed -i -e "s/\(XCOMM CDEBUGFLAGS =\)/CDEBUGFLAGS = $RPM_OPT_FLAGS\nCXXDEBUGFLAGS = $RPM_OPT_FLAGS/g" Local.config
@@ -53,6 +54,8 @@ done
 
 #build against system libraries
 rm -rf xaw3dxft/
+rm -rf Xaw3dxft/
+rm -rf X11/
 
 #%%configure or %%configure2_5x brokes the build
 ./configure xaw3dxft.so
@@ -65,18 +68,8 @@ rm -rf %{buildroot}
 
 %makeinstall_std install.man
 
-#mdk menu entry
-mkdir -p %{buildroot}%{_datadir}/applications
-cat > %{buildroot}%{_datadir}/applications/%{name}.desktop << EOF
-[Desktop Entry]
-Name=Xpaint
-Comment=Paint program
-Exec=%{name}
-Icon=%{name}
-Terminal=false
-Type=Application
-Categories=Graphics;
-EOF
+#use upstream .desktop file
+install -Dpm0644 %{name}.desktop %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 #mdk icon
 install -d %{buildroot}%{_iconsdir}
@@ -94,10 +87,10 @@ rm -rf %{buildroot}
 %files
 %defattr(-,root,root)
 %doc ChangeLog README* TODO Doc/*.doc Doc/sample.Xdefaults
-%{_bindir}/*
-%{_mandir}/man1/xpaint.1x*
-%{_datadir}/xpaint
 %config(noreplace) %{_sysconfdir}/X11/app-defaults/*
+%{_bindir}/*
+%{_mandir}/man1/xpaint.*
+%{_datadir}/xpaint
 %{_datadir}/applications/%{name}.desktop
 %{_iconsdir}/*.png
 %{_iconsdir}/*/*.png
