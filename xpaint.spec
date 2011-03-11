@@ -1,7 +1,7 @@
 Summary:	An X Window System image editing or paint program
 Name:		xpaint
 Version:	2.9.8.2
-Release:	%mkrel 1
+Release:	%mkrel 2
 License:	MIT
 Group:		Graphics
 BuildRequires:	xpm-devel jpeg-devel png-devel libxp-devel
@@ -11,6 +11,7 @@ BuildRequires:	libxft-devel chrpath
 BuildRequires:	openjpeg-devel
 Source0:	http://prdownloads.sourceforge.net/sf-xpaint/xpaint-%{version}.tar.bz2
 Source1:	icons-%{name}.tar.bz2
+Patch0:		xpaint-build_against_system_libraries.patch
 URL:		https://sourceforge.net/projects/sf-xpaint
 BuildRoot:	%{_tmppath}/xpaint-root
 # Menus uses Liberation fonts
@@ -33,7 +34,7 @@ some support for batch processing.
 
 %prep
 %setup -q 
-
+%patch0 -p0 
 %build
 # adapted fixes from Fedora
 sed -i -e "s/\(XCOMM CDEBUGFLAGS =\)/CDEBUGFLAGS = $RPM_OPT_FLAGS\nCXXDEBUGFLAGS = $RPM_OPT_FLAGS/g" Local.config
