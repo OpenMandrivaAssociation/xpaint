@@ -1,0 +1,62 @@
+--- ./Imakefile.syslib	2010-11-07 22:41:08.000000000 +0100
++++ ./Imakefile	2011-03-11 13:34:14.000000000 +0100
+@@ -8,7 +8,7 @@
+ #include "./Local.config"
+ #include "./Local.xawdefs"
+ 
+-EXTRA_INCLUDES = -I./Xaw3dxft
++#EXTRA_INCLUDES = -I./Xaw3dxft
+ 
+ DEFINES = $(ARCH_DEFINES) $(EXTRA_DEFINES) \
+           $(XAWLIB_DEFINES) $(XPM_INCLUDE) $(XFT_INCLUDE) \
+@@ -106,7 +106,7 @@ LOCAL_LIBRARIES = -Lrw -lrw \
+   $(JPEG_LIB) $(JP2K_LIB) $(PNG_LIB)
+ #endif
+ 
+-SUBDIRS = rw Xaw3dxft
++SUBDIRS = rw
+ 
+ ComplexProgramTarget(xpaint)
+ # InstallAppDefaults(XPaint)
+@@ -118,9 +118,6 @@ CleanSubdirs($(SUBDIRS))
+ # Other targets...
+ 
+ start::
+-	if test `grep -c XAW3DXF Local.xawdefs` = 1 && \
+-           test `grep -c libXaw3dxft.a Local.xawdefs` = 1 ; then \
+-	cd Xaw3dxft ; xmkmf ; make ; cd .. ; fi
+ 	@if ! [ -d xaw_incdir ] ; then ./configure ; make ; fi
+ 
+ install::
+@@ -225,12 +222,10 @@ clean::
+ 	cd share/messages ; $(RM) *~
+ 	cd app-defaults ; $(RM) core *~ substads
+ 	cd app-defaults/out ; $(RM) -f XPaint*
+-	cd Xaw3dxft ; make clean
+ 
+ cleandir::
+ 	-$(RM) bitmaps/Makefile* Doc/Makefile*
+ 	-$(RM) -f rw/Makefile
+-	-$(RM) -f Xaw3dxft/Makefile
+ 
+ includes:: XPaint.ad.h DefaultRC.txt.h messages.h
+ 	cd bitmaps; $(RM) tools; \
+--- ./configure.syslib	2010-11-07 14:40:41.000000000 +0100
++++ ./configure	2011-03-11 13:33:01.000000000 +0100
+@@ -101,13 +101,12 @@ if test "$WIDGETS" = "xaw3dxft.a" ; then
+ fi
+ 
+ if test "$WIDGETS" = "xaw3dxft.so" ; then
+-   ln -sf ./Xaw3dxft xaw_incdir
++   ln -sf /usr/include/X11/Xaw3dxft xaw_incdir
+    echo "XAWLIB_DEFINES = -DXAW3D -DXAW3DG -DXAW3DXFT"   
+    echo "XAWLIB_DEFINES = -DXAW3D -DXAW3DG -DXAW3DXFT" > Local.xawdefs
+-   echo "SYS_LIBRARIES = -lXaw3dxft -lXt -L. -L./Xaw3dxft"
+-   echo "SYS_LIBRARIES = -lXaw3dxft -lXt -L. -L./Xaw3dxft" >> Local.xawdefs
++   echo "SYS_LIBRARIES = -lXaw3dxft -lXt -L."
++   echo "SYS_LIBRARIES = -lXaw3dxft -lXt -L." >> Local.xawdefs
+    echo ""
+-   cd Xaw3dxft ; xmkmf ; make Xaw3dP.h ; cd .. ;
+    xmkmf -a
+    exit
+ fi
