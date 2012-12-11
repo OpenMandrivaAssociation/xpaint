@@ -1,19 +1,29 @@
 Summary:	An X Window System image editing or paint program
 Name:		xpaint
-Version:	2.9.8.2
-Release:	%mkrel 3
+Version:	2.9.8.3
+Release:	1
 License:	MIT
 Group:		Graphics
-BuildRequires:	xpm-devel jpeg-devel png-devel libxp-devel
-BuildRequires:	tiff-devel zlib-devel bison flex 
-BuildRequires:	Xaw3d-devel xaw3dxft-devel imake gccmakedep
-BuildRequires:	libxft-devel chrpath
-BuildRequires:	openjpeg-devel
+URL:		https://sourceforge.net/projects/sf-xpaint
 Source0:	http://prdownloads.sourceforge.net/sf-xpaint/xpaint-%{version}.tar.bz2
 Source1:	icons-%{name}.tar.bz2
 Patch0:		xpaint-build_against_system_libraries.patch
-URL:		https://sourceforge.net/projects/sf-xpaint
-BuildRoot:	%{_tmppath}/xpaint-root
+BuildRequires:	bison
+BuildRequires:	chrpath
+BuildRequires:	flex
+BuildRequires:	gccmakedep
+BuildRequires:	imake
+BuildRequires:	pkgconfig(libopenjpeg1)
+BuildRequires:	pkgconfig(libpng)
+BuildRequires:	pkgconfig(libtiff-4)
+BuildRequires:	pkgconfig(xft)
+BuildRequires:	pkgconfig(xp)
+BuildRequires:	pkgconfig(xpm)
+BuildRequires:	pkgconfig(zlib)
+BuildRequires:	jpeg-devel
+BuildRequires:	Xaw3d-devel
+BuildRequires:	xaw3dxft-devel
+
 # Menus uses Liberation fonts
 Requires:	fonts-ttf-liberation
 
@@ -33,19 +43,20 @@ in plain C. The package includes a substantial list of examples and
 some support for batch processing.
 
 %prep
-%setup -q 
+%setup -q
 %patch0 -p0 -b .syslib
 
 %build
 # adapted fixes from Fedora
-sed -i -e "s/\(XCOMM CDEBUGFLAGS =\)/CDEBUGFLAGS = $RPM_OPT_FLAGS\nCXXDEBUGFLAGS = $RPM_OPT_FLAGS/g" Local.config
+sed -i -e "s/\(XCOMM CDEBUGFLAGS =\)/CDEBUGFLAGS = %{optflags}\nCXXDEBUGFLAGS = %{optflags}/g" Local.config
 sed -i -e 's|-lXpm|-lXpm -lX11 -lm -lXmu -lXt -lXext|g' Local.config
 sed -i -e 's|-lpng -lz|-lpng|g' Local.config
 sed -i -e 's|/lib |/%{_lib} |g' Local.config
 sed -i -e 's|@XPMDIR@|%{_prefix}|g' Local.config
+sed -i -e 's|JP2K_INCLUDE =|JP2K_INCLUDE = -I%{_includedir}/openjpeg-1.5|g' Local.config
 sed -i -e 's|/usr/lib|%{_libdir}|g' configure
 sed -i -e 's|install -c -s pdfconcat|install -c pdfconcat|g' Imakefile
-sed -i -e 's|CFLAGS="-O3 -s -DNDEBUG=1"|CFLAGS=$RPM_OPT_FLAGS|g' pdfconcat.c
+#sed -i -e 's|CFLAGS="-O3 -s -DNDEBUG=1"|CFLAGS=%{optflags}|g' pdfconcat.c
 for f in ChangeLog README; do
     iconv -f iso-8859-1 -t utf-8 $f > $f.utf8
     touch -r $f $f.utf8
@@ -64,8 +75,6 @@ rm -rf X11/
 make LOCAL_LDFLAGS="%{ldflags}"
 
 %install
-rm -rf %{buildroot}
-
 %makeinstall_std install.man
 
 #use upstream .desktop file
@@ -81,11 +90,7 @@ chrpath -d %{buildroot}%{_bindir}/xpaint
 # symlink on /etc
 rm -rf %{buildroot}/usr/lib/X11/app-defaults
 
-%clean
-rm -rf %{buildroot}
-
 %files
-%defattr(-,root,root)
 %doc ChangeLog README* TODO Doc/*.doc Doc/sample.Xdefaults
 %config(noreplace) %{_sysconfdir}/X11/app-defaults/*
 %{_bindir}/*
@@ -94,3 +99,4 @@ rm -rf %{buildroot}
 %{_datadir}/applications/%{name}.desktop
 %{_iconsdir}/*.png
 %{_iconsdir}/*/*.png
+
