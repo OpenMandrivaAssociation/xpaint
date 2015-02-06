@@ -1,7 +1,7 @@
 Summary:	An X Window System image editing or paint program
 Name:		xpaint
 Version:	2.9.8.3
-Release:	1
+Release:	2
 License:	MIT
 Group:		Graphics
 URL:		https://sourceforge.net/projects/sf-xpaint
