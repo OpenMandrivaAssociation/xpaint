@@ -8,6 +8,10 @@ URL:		https://sourceforge.net/projects/sf-xpaint
 Source0:	http://prdownloads.sourceforge.net/sf-xpaint/xpaint-%{version}.tar.bz2
 Source1:	icons-%{name}.tar.bz2
 Patch0:		xpaint-build_against_system_libraries.patch
+BuildRequires:	autoconf
+BuildRequires:	automake
+BuildRequires:	libtool-base
+BuildRequires:	slibtool
 BuildRequires:	bison
 BuildRequires:	chrpath
 BuildRequires:	flex
